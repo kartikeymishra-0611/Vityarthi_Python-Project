@@ -1,0 +1,180 @@
+import os
+import pickle
+
+# Accepting data for Dictionary
+def insertRec():
+    rollno = int(input("Enter Roll number: "))
+    name = input("Enter Name: ")
+    marks = int(input("Enter Marks: "))
+
+    rec = {
+        "Rollno": rollno,
+        "Name": name,
+        "Marks": marks
+    }
+
+    # Writing the Dictionary
+    f = open("student.dat", "ab")
+    pickle.dump(rec, f)
+    f.close()
+
+
+# Reading the records
+def readRec():
+    try:
+        f = open("student.dat", "rb")
+
+        while True:
+            try:
+                rec = pickle.load(f)
+                print("Roll Num: ", rec["Rollno"])
+                print("Name: ", rec["Name"])
+                print("Marks: ", rec["Marks"])
+                print()
+            except EOFError:
+                break
+
+        f.close()
+
+    except FileNotFoundError:
+        print("No records found.")
+
+
+# Searching a Record based on Rollno
+def searchRollNo(x):
+    try:
+        f = open("student.dat", "rb")
+        flag = False
+
+        while True:
+            try:
+                rec = pickle.load(f)
+
+                if rec["Rollno"] == x:
+                    print("Roll Num: ", rec["Rollno"])
+                    print("Name: ", rec["Name"])
+                    print("Marks: ", rec["Marks"])
+                    flag = True
+                    break
+
+            except EOFError:
+                break
+
+        f.close()
+
+        if flag == False:
+            print("Record Not Found")
+
+    except FileNotFoundError:
+        print("No records found.")
+
+
+# Marks Modification for a Rollno
+def updateMarks(x, m):
+    try:
+        f = open("student.dat", "rb")
+        recList = []
+
+        while True:
+            try:
+                rec = pickle.load(f)
+                recList.append(rec)
+            except EOFError:
+                break
+
+        f.close()
+
+        flag = False
+
+        for i in range(len(recList)):
+            if recList[i]["Rollno"] == x:
+                recList[i]["Marks"] = m
+                flag = True
+
+        f = open("student.dat", "wb")
+
+        for rec in recList:
+            pickle.dump(rec, f)
+
+        f.close()
+
+        if flag:
+            print("Record Updated Successfully")
+        else:
+            print("Record Not Found")
+
+    except FileNotFoundError:
+        print("No records found.")
+
+
+# Deleting a record based on RollNo
+def deleteRec(r):
+    try:
+        f = open("student.dat", "rb")
+        recList = []
+
+        while True:
+            try:
+                rec = pickle.load(f)
+                recList.append(rec)
+            except EOFError:
+                break
+
+        f.close()
+
+        f = open("student.dat", "wb")
+        flag = False
+
+        for x in recList:
+            if x["Rollno"] == r:
+                flag = True
+                continue
+
+            pickle.dump(x, f)
+
+        f.close()
+
+        if flag:
+            print("Record Deleted Successfully")
+        else:
+            print("Record Not Found")
+
+    except FileNotFoundError:
+        print("No records found.")
+
+
+# Menu Driven Program
+while True:
+    print("\nType 1 to insert rec.")
+    print("Type 2 to display rec.")
+    print("Type 3 to search rec.")
+    print("Type 4 to update rec.")
+    print("Type 5 to delete rec.")
+    print("Enter your choice 0 to exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 0:
+        break
+
+    elif choice == 1:
+        insertRec()
+
+    elif choice == 2:
+        readRec()
+
+    elif choice == 3:
+        r = int(input("Enter a RollNo to search: "))
+        searchRollNo(r)
+
+    elif choice == 4:
+        r = int(input("Enter a RollNo: "))
+        m = int(input("Enter new Marks: "))
+        updateMarks(r, m)
+
+    elif choice == 5:
+        r = int(input("Enter a RollNo: "))
+        deleteRec(r)
+
+    else:
+        print("Invalid Choice")
