@@ -2,7 +2,7 @@
 
 ##Student Marks Record Management System
 
-#Project Overview
+# Project Overview
 
 The Student Marks Record Management System is a Python-based project developed to store and manage student academic records efficiently. The system stores important student details such as Roll Number, Name, and Marks using Python dictionaries and file handling.
 
@@ -10,7 +10,7 @@ The project provides a simple menu-driven interface that allows the user to inse
 
 This project demonstrates the practical use of Python functions, dictionaries, file handling, loops, conditional statements, and the pickle module.
 
-#Features
+# Features
 
 Add new student records.
 
@@ -45,7 +45,7 @@ File Type: Binary file
 
 IDE/Editor: VS Code / IDLE / PyCharm / any Python-supported editor
 
-#Project Working
+# Project Working
 
 The project uses a dictionary to store the details of each student:
 
@@ -110,7 +110,7 @@ Step 6: Select an Operation
 
 The program will display a menu. Enter the number corresponding to the operation you want to perform.
 
-#Instructions for Testing
+# Instructions for Testing
 
 The following test cases can be performed to verify the project:
 
